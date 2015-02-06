@@ -1,2 +1,15 @@
-<p>Nothing here {{ 'yet' + '!' }}</p>
-<p>1 + 2 = {{ 1 + 2 }}</p>
+  <ul>
+    <li>
+      <span>Dubstep-Free Zone</span>
+      <p>
+        Can we please just for an evening not listen to dubstep.
+      </p>
+    </li>
+    <li>
+      <span>All dubstep all the time</span>
+      <p>
+        Get it on!
+      </p>
+    </li>
+  </ul>
+  <p>Total number of parties: 2</p>
