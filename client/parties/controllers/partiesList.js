@@ -1,7 +1,8 @@
-angular.module("socially").controller("PartiesListCtrl", ['$scope', '$meteorCollection', '$meteorSubscribe', '$rootScope',
-  function($scope, $meteorCollection, $meteorSubscribe, $rootScope){
+angular.module("socially").controller("PartiesListCtrl", ['$scope', '$meteorCollection', '$rootScope', '$meteorMethods',
+  function($scope, $meteorCollection, $rootScope, $meteorMethods){
 
-    $meteorSubscribe.subscribe('users');
+    $scope.parties = $meteorCollection(Parties).subscribe('parties');
+    $scope.users = $meteorCollection(Meteor.users, false).subscribe('users');
     
     $scope.orderProperty = 'name';
     
@@ -24,8 +25,6 @@ angular.module("socially").controller("PartiesListCtrl", ['$scope', '$meteorColl
       return owner;
     };
     
-    $scope.parties = $meteorCollection(Parties).subscribe('parties');
-
     $scope.remove = function(party){
       $scope.parties.remove(party);
     };
@@ -33,5 +32,23 @@ angular.module("socially").controller("PartiesListCtrl", ['$scope', '$meteorColl
     $scope.removeAll = function(){
       $scope.parties.remove();
     };
+    
+    $scope.rsvp = function(partyId, rsvp){
+      $meteorMethods.call('rsvp', partyId, rsvp).then(
+        function(data){
+          console.log('success responding', data);
+        },
+        function(err){
+          console.log('failed', err);
+        }
+      );
+    };
+    
+    $scope.outstandingInvitations = function (party) {
+      return _.filter($scope.users, function (user) {
+        return (_.contains(party.invited, user._id) &&
+          !_.findWhere(party.rsvps, {user: user._id}));
+    });
+};
 
 }]);

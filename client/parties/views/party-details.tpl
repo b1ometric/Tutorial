@@ -10,8 +10,9 @@ Here you will see and change the details of the party:
 <button><a href="/parties">Cancel</a></button>
 
 <ul>
-  Users to invite:
+  Users:
   <li ng-repeat="user in users | uninvited:party">
     <div>{{ user | displayName }}</div>
+    <button ng-click="invite(user)">Invite</button>
   </li>
 </ul>
