@@ -1,7 +1,9 @@
-angular.module("socially").controller("PartyDetailsCtrl", ['$scope', '$stateParams', '$meteorObject',
-  function($scope, $stateParams, $meteorObject){
+angular.module("socially").controller("PartyDetailsCtrl", ['$scope', '$stateParams', '$meteorObject', '$meteorCollection',
+  function($scope, $stateParams, $meteorObject, $meteorCollection){
 
-    $scope.party = $meteorObject(Parties, $stateParams.partyId);
+    $scope.users = $meteorCollection(Meteor.users, false).subscribe('users');
+    
+    $scope.party = $meteorObject(Parties, $stateParams.partyId).subscribe('parties');
 
 /*
     //TODO: Neither of these save functions work
