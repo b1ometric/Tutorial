@@ -10,8 +10,8 @@ Here you will see and change the details of the party:
 <button><a href="/parties">Cancel</a></button>
 
 <ul>
-  Users:
-  <li ng-repeat="user in users">
-    <div>{{ user.emails[0].address }}</div>
+  Users to invite:
+  <li ng-repeat="user in users | uninvited:party">
+    <div>{{ user | displayName }}</div>
   </li>
 </ul>
