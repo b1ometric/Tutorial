@@ -9,8 +9,15 @@ angular.module("socially").controller("PartiesListCtrl", ['$scope', '$meteorColl
 
     $scope.parties = $meteorCollection(Parties);
 
-  }]);
-}
+    $scope.remove = function(party){
+      $scope.parties.remove(party);
+    };
+    
+    $scope.removeAll = function(){
+      $scope.parties.remove();
+    };
+
+}]);
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
