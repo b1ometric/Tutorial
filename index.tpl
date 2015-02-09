@@ -6,5 +6,4 @@
     </li>
   </ul>
 </div>
-</ul>
 <p>Total number of parties: {{parties.length}}</p>
