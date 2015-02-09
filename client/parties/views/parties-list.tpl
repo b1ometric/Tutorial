@@ -1,4 +1,4 @@
-<form>
+<form ng-show="user">
   <label>Name</label>
   <input ng-model="newParty.name">
   <label>Description</label>
@@ -7,6 +7,9 @@
   <input type="checkbox" ng-model="newParty.public">
   <button ng-click="newParty.owner=$root.currentUser._id; parties.push(newParty)">Add</button>
 </form>
+<div ng-hide="user">
+  Log in to create a party!
+</div>
 <ul>
   Parties:
   <div>
@@ -21,9 +24,9 @@
     <a href="/parties/{{party._id}}">{{party.name}}</a>
 
     <p>{{party.description}}</p>
-    <button ng-click="remove(party)">X</button>
+    <button ng-click="remove(party)" ng-show="user && user._id == party.owner">X</button>
     <p><small>Posted by {{ creator(party) | displayName }}</small></p>
-    <div>
+    <div ng-show="user">
       <input type="button" value="I'm going!" ng-click="rsvp(party._id, 'yes')">
       <input type="button" value="Maybe" ng-click="rsvp(party._id, 'maybe')">
       <input type="button" value="No" ng-click="rsvp(party._id, 'no')">
@@ -43,11 +46,14 @@
         {{ getUserById(rsvp.user) | displayName }} - {{ rsvp.rsvp }}
       </div>
     </div>
-    <ul>
+    <ul ng-if="!party.public">
       Users who not responded:
       <li ng-repeat="invitedUser in outstandingInvitations(party)">
         {{ invitedUser | displayName }}
       </li>
     </ul>
+    <div ng-if="party.public">
+      Everyone is invited
+    </div>
   </li>
 </ul>
