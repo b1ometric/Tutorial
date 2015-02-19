@@ -17,8 +17,8 @@
       <div>
         <input type="search" ng-model="search" placeholder="Search">
         <select ng-model="orderProperty">
-          <option value="name">Ascending</option>
-          <option value="-name">Descending</option>
+          <option value="1">Ascending</option>
+          <option value="-1">Descending</option>
         </select>
       </div>
       <div class="angular-google-map-container">
