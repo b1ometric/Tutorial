@@ -3,11 +3,10 @@
     <form ng-show="$root.currentUser">
       <h2>Create a new party:</h2>
       <label>Name</label>
-      <input ng-model="newParty.name">
-      <label>Description</label>
-      <input ng-model="newParty.description">
-      <label>Public</label>
-      <input type="checkbox" ng-model="newParty.public">
+      <input ng-model="party.name" ng-disabled="party.owner != $root.currentUser._id">
+        <input ng-model="party.description" ng-disabled="party.owner != $root.currentUser._id">
+        <label>Is public</label>
+      <input type="checkbox" ng-model="party.public" ng-disabled="party.owner != $root.currentUser._id">
       <button ng-click="newParty.owner=$root.currentUser._id;parties.push(newParty)" class="btn btn-default">Add</button>
     </form>
     <h1 ng-hide="$root.currentUser">
@@ -29,9 +28,8 @@
           </ui-gmap-markers>
         </ui-gmap-google-map>
       </div>
-      <li ng-repeat="party in parties | filter:search | orderBy:orderProperty" class="party">
-        <h1><a href="/parties/{{party._id}}">{{party.name}}</a></h1>
-
+      <li dir-paginate="party in parties | itemsPerPage: perPage" total-items="partiesCount.count">
+        <a href="/parties/{{party._id}}">{{party.name}}</a>
         <p>{{party.description}}</p>
         <button ng-click="remove(party)" ng-show="$root.currentUser && $root.currentUser._id == party.owner">X</button>
         <div ng-show="$root.currentUser">
@@ -70,5 +68,6 @@
         <p><small>Posted by {{ creator(party) | displayName }}</small></p>
       </li>
     </ul>
+    <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
   </div>
 </div>

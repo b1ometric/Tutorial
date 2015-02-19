@@ -6,6 +6,10 @@ angular.module("socially").controller("PartiesListCtrl", ['$scope', '$meteorColl
     $scope.sort = { name: 1 };
     $scope.orderProperty = '1';
 
+    $scope.pageChanged = function(newPage) {
+      $scope.page = newPage;
+    };
+    
     $scope.users = $meteorCollection(Meteor.users, false).subscribe('users');
 
     $scope.parties = $meteorCollection(function() {
@@ -38,7 +42,7 @@ angular.module("socially").controller("PartiesListCtrl", ['$scope', '$meteorColl
           $state.go('partyDetails', {partyId: marker._id});
         };
 
-        //$scope.partiesCount = $meteorCollection(Counts)[0];
+        $scope.partiesCount = $meteorCollection(Counts)[0];
       });
     });
 
