@@ -1,12 +1,13 @@
 <div class="row parties-list">
   <div class="col-md-6 col-md-offset-3">
     <form ng-show="$root.currentUser">
-      <h2>Create a new party:</h2>
-      <label>Name</label>
-      <input ng-model="party.name" ng-disabled="party.owner != $root.currentUser._id">
-        <input ng-model="party.description" ng-disabled="party.owner != $root.currentUser._id">
-        <label>Is public</label>
-      <input type="checkbox" ng-model="party.public" ng-disabled="party.owner != $root.currentUser._id">
+  <h2>Create a new party:</h2>
+  <label>Name</label>
+  <input ng-model="newParty.name">
+  <label>Description</label>
+  <input ng-model="newParty.description">
+  <label>Public</label>
+  <input type="checkbox" ng-model="newParty.public">
       <button ng-click="newParty.owner=$root.currentUser._id;parties.push(newParty)" class="btn btn-default">Add</button>
     </form>
     <h1 ng-hide="$root.currentUser">
